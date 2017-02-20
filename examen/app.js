@@ -20,6 +20,14 @@ app.use(require('body-parser')());
 app.get('/cesar', function(req, res){
 	res.render('cesar');
 });
+
+
+app.use(require('body-parser')());
+app.get('/vigenere', function(req, res){
+	res.render('vigenere');
+});
+
+
 app.get('/newsletter', function(req, res){
 	res.render('newsletter', { csrf: 'CSRF token goes here' });
 });
