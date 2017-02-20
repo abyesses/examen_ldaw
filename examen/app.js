@@ -1,4 +1,3 @@
-//var cesar = require('./algorithms/cesar_cipher.js');
 var express = require('express');
 var app = express();
 var handlebars = require('express-handlebars').create({
@@ -15,17 +14,19 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public'));
-
+app.use(function(req, res, next){
+	res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+	next();
+});
 app.use(require('body-parser')());
+app.get('/', function(req, res){
+	res.render('choose');
+});
 app.get('/cesar', function(req, res){
-	res.render('cesar');
+	res.render('cesar',{pageTestScript: '/qa/test_result.js'});
 });
-app.get('/newsletter', function(req, res){
-	res.render('newsletter', { csrf: 'CSRF token goes here' });
-});
-
-app.get('/newsletter-ajax', function(req, res){
-	res.render('newsletter-ajax', { csrf: 'CSRF token goes here' });
+app.get('/vigenere', function(req, res){
+	res.render('vigenere');
 });
 
 app.post('/process', function(req, res){
@@ -33,14 +34,6 @@ app.post('/process', function(req, res){
 	res.render('result',{texto: req.body.texto, desfase: req.body.desfase});
 	if(req.body.decode)
 	res.render('result_decode',{texto: req.body.texto, desfase: req.body.desfase});
-});
-
-app.post('/process2', function(req, res){
-		res.send({ success: true });
-});
-
-app.get('/thank-you', function(req, res){
-	res.render('thank-you');
 });
 
 app.use(function(req, res, next){

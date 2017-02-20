@@ -14,9 +14,9 @@ function code(text,n){
             		}
 
             	}
-            	console.log(result_str);
-            	document.write(result_str);
-            	//return result_str;
+            	//console.log(result_str);
+                  document.getElementById('result').innerHTML=result_str;
+
             }
             function decode(text,n){
             	var i;
@@ -42,7 +42,7 @@ function code(text,n){
             			result_str = result_str.concat(abc_upper[j]);
             		}
             	}
-            	console.log(result_str);
-            	document.write(result_str);
+            	//console.log(result_str);
+            	document.getElementById('result').innerHTML=result_str;
             	//return result_str;
             }

@@ -3,20 +3,38 @@
 <head>
 	<title>Examen 1er Parcial</title>
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
+	 	{{#if showTests}}
+		<link rel="stylesheet" href="/vendor/mocha.css">
+		
+	{{/if}}
 </head>
 <body>
 	<h1>Examen</h1>
 	<p>Alumnos:</p>
 	<p>Abraham Esses	A01018853</p>
-	<p>Pablo de la Mora	</p>
-	<ul>
-		<a href="cesar">Cifrado C&eacute;sar</a>
-		<a href="vigenere">Cifrado Vigenere</a>
+	<p>Pablo de la Mora	A01020365</p>
+	<ul id="menu">
+		<li><a href="cesar">Cifrado C&eacute;sar</a></li>
+		<li><a href="vigenere">Cifrado Vigenere</a></li>
 	</ul>
 	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 
         <script>window.jQuery || document.write('<script src="/vendor/js/jquery-2.1.1.min.js"><\/script>')</script>
     	{{{_sections.jquery}}}
 	{{{body}}}
+	{{#if showTests}}
+		<div id="mocha"></div>
+		<script src="/vendor/mocha.js"></script>
+		<script src="/vendor/chai.js"></script>
+		<script>
+			mocha.ui('tdd');
+			var assert = chai.assert;
+		</script>
+		<script src="/qa/tests.js"></script>
+		{{#if pageTestScript}}
+			<script src="{{pageTestScript}}"></script>
+		{{/if}}
+		<script>mocha.run();</script>
+	{{/if}}
 </body>
 </html>
